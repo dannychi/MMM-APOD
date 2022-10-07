@@ -18,8 +18,7 @@
   position: relative;
   height: 100vh;
   display: flex;
-  align-items: start;
-  justify-content: center;
+  align-items: end;
   z-index: 0;
   box-sizing: border-box;
   padding-top: var(--gap-body-top);
