@@ -1,3 +1,35 @@
-.region.middle.center .MMM-APOD .description {
+.region .MMM-APOD .img {
+  background: #000 no-repeat center center;
+  background-blend-mode: hard-light;
+  background-size: contain;
+}
+
+.region .MMM-APOD .description {
   margin: auto;
+}
+
+.region.middle.center .MMM-APOD .img {
+  width: 80vh;
+  height: 80vh;
+  border-radius: 10vh;
+}
+
+.region.fullscreen.below .MMM-APOD .module-content {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  z-index: 0;
+  box-sizing: border-box;
+  padding-top: var(--gap-body-top);
+}
+
+.region.fullscreen.below .MMM-APOD .module-content .img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
 }

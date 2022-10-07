@@ -8,7 +8,7 @@
  * MIT Licensed.
  */
 
-Module.register("MMM-APOD", {
+Module.register("MMM-APOD",{
 
 	// Default module config
 	defaults: {
@@ -30,12 +30,12 @@ Module.register("MMM-APOD", {
 	},
 
 	// Define required scripts
-	getStyles: function () {
+	getStyles: function() {
 		return ["MMM-APOD.css"];
 	},
 
 	// Define start sequence
-	start: function () {
+	start: function() {
 		Log.info("Starting module: " + this.name);
 
 		this.title = null;
@@ -48,7 +48,7 @@ Module.register("MMM-APOD", {
 	},
 
 	// Override dom generator
-	getDom: function () {
+	getDom: function() {
 		var wrapper = document.createElement("div");
 
 		if (this.config.appid === "") {
@@ -63,7 +63,7 @@ Module.register("MMM-APOD", {
 			return wrapper;
 		}
 
-		if (this.config.showTitle) {
+		if(this.config.showTitle) {
 			var apodTitle = document.createElement('div');
 			apodTitle.className = "dimmed light small";
 			apodTitle.innerHTML = this.title;
@@ -71,19 +71,21 @@ Module.register("MMM-APOD", {
 		}
 
 		if (this.type === "image") {
-			var apodImage = document.createElement('div');
+			var apodImage = document.createElement('img');
 
-			var styleString = `background-image: url(${this.url});`;
-
+			var styleString = '';
 			if (this.config.maxMediaWidth != 0) {
 				styleString += 'max-width: ' + this.config.maxMediaWidth + 'px;';
 			}
 			if (this.config.maxMediaHeight != 0) {
 				styleString += 'max-height: ' + this.config.maxMediaHeight + 'px;';
 			}
+			if (styleString != '') {
+				apodImage.style = styleString;
+			}
 
-			apodImage.style = styleString
-			apodImage.className = "img";
+			apodImage.src = this.url;
+			apodImage.alt = this.title;
 
 			wrapper.appendChild(apodImage);
 		} else if (this.type === "video") {
@@ -108,7 +110,7 @@ Module.register("MMM-APOD", {
 			return;
 		}
 
-		if (this.copyright != "" && typeof this.copyright !== "undefined") {
+		if(this.copyright != "" && typeof this.copyright !== "undefined") {
 			var apodCopyright = document.createElement('div');
 
 			apodCopyright.className = "dimmed thin xsmall";
@@ -117,7 +119,7 @@ Module.register("MMM-APOD", {
 			wrapper.appendChild(apodCopyright);
 		}
 
-		if (this.config.showDescription) {
+		if(this.config.showDescription) {
 			var apodDescription = document.createElement('div');
 
 			apodDescription.className = "dimmed light xsmall description";
@@ -128,7 +130,7 @@ Module.register("MMM-APOD", {
 				apodDescription.style = 'max-width: 960px;';
 			}
 
-			if (this.config.useShortDescription) {
+			if(this.config.useShortDescription) {
 				apodDescription.innerHTML = this.shortText(this.description, this.config.maxDescriptionLength);
 			} else {
 				apodDescription.innerHTML = this.description;
@@ -141,7 +143,7 @@ Module.register("MMM-APOD", {
 	},
 
 	// Request new data from api.nasa.gov
-	updateAPOD: function () {
+	updateAPOD: function() {
 		if (this.config.appid === "") {
 			Log.error(this.name + ": APPID not set.");
 			return;
@@ -153,7 +155,7 @@ Module.register("MMM-APOD", {
 
 		var apodRequest = new XMLHttpRequest();
 		apodRequest.open("GET", url, true);
-		apodRequest.onreadystatechange = function () {
+		apodRequest.onreadystatechange = function() {
 			if (this.readyState === 4) {
 				if (this.status === 200) {
 					self.processAPOD(JSON.parse(this.response));
@@ -180,7 +182,7 @@ Module.register("MMM-APOD", {
 	},
 
 	// Use the received data to set the various values before update DOM
-	processAPOD: function (data) {
+	processAPOD: function(data) {
 		if (!data || typeof data.url === "undefined") {
 			Log.error(this.name + ": Do not receive usable data.");
 			return;
@@ -198,14 +200,14 @@ Module.register("MMM-APOD", {
 	},
 
 	// Schedule next update
-	scheduleUpdate: function (delay) {
+	scheduleUpdate: function(delay) {
 		var nextLoad = this.config.updateInterval;
 		if (typeof delay !== "undefined" && delay >= 0) {
 			nextLoad = delay;
 		}
 
 		var self = this;
-		setTimeout(function () {
+		setTimeout(function() {
 			self.updateAPOD();
 		}, nextLoad);
 	},
@@ -218,7 +220,7 @@ Module.register("MMM-APOD", {
 			return text.substr(0, text.lastIndexOf(" ", maxLenght)) + "&hellip;";
 		} else {
 			return text.substr(0, maxLenght) + "&hellip;";
-		}
+		} 
 	}
 
 });
