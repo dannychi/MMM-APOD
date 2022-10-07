@@ -1,27 +1,36 @@
+.region .MMM-APOD .module-content {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  z-index: 0;
+  box-sizing: border-box;
+  padding: var(--gap-body-top);
+}
+
 .region .MMM-APOD .img {
   background: #000 no-repeat center center;
   background-blend-mode: hard-light;
-  background-size: contain;
 }
 
 .region .MMM-APOD .description {
   margin: auto;
 }
 
+/* middle_center */
 .region.middle.center .MMM-APOD .img {
-  width: 80vh;
-  height: 80vh;
-  border-radius: 10vh;
+  width: 75vh;
+  height: 75vh;
+  background-size: cover;
 }
 
+.region.middle.center .MMM-APOD .module-content {
+  align-items: start;
+  justify-content: center;
+}
+
+/* fullscreen_below */
 .region.fullscreen.below .MMM-APOD .module-content {
-  position: relative;
-  height: 100vh;
-  display: flex;
   align-items: end;
-  z-index: 0;
-  box-sizing: border-box;
-  padding-top: var(--gap-body-top);
 }
 
 .region.fullscreen.below .MMM-APOD .module-content .img {
@@ -31,4 +40,5 @@
   top: 0;
   bottom: 0;
   z-index: -1;
+  background-size: contain;
 }
