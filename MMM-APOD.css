@@ -21,6 +21,7 @@
   width: 75vh;
   height: 75vh;
   background-size: cover;
+  border-radius: 30vh;
 }
 
 .region.middle.center .MMM-APOD .module-content {
